@@ -23,17 +23,18 @@ app.getBookCategoryList = () => {
     return bestSeller;
 }
 
-app.reviewBaseUrl = `https://api.nytimes.com/svc/books/v3/reviews.json`;
+app.reviewUrl = `https://api.nytimes.com/svc/books/v3/reviews.json`;
 
-// Display the author, and a very brief description of the book.
+//Brief description of the book
 app.getBookReviews = () => {
     const reviews = $.ajax({
-        url: `${app.reviewBaseUrl}?isbn`,
+        url: `${app.apiKey}?isbn`,
         method: 'GET',
         dataType: 'json',
         data: {
-            apiKey: app.reviewBaseUrl
+            apiKey: app.apiKey
         }
     });
     return reviews;
 }
+
