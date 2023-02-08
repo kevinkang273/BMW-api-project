@@ -28,8 +28,8 @@ app.reviewBaseUrl = `https://api.nytimes.com/svc/books/v3/reviews.json`;
 app.overviewBaseUrl = `https://api.nytimes.com/svc/books/v3/lists/overview.json
 `;
 
-// Display image of the cover (Get top 5 books for all the Best Sellers lists for specified date.)
-app.getBookImage = () => {
+// Display image of the cover and description (Get top 5 books for all the Best Sellers lists for specified date.)
+app.getBookOverview = () => {
     const imageList = $.ajax({
         url: `${app.overviewBaseUrl}`,
         method: 'GET',
@@ -42,9 +42,10 @@ app.getBookImage = () => {
 }
 
 
+
 // Display the author, and a very brief description of the book.
-app.getBookReviews = () => {
-    const reviews = $.ajax({
+app.getBookAuthor = () => {
+    const author = $.ajax({
         url: `${app.reviewBaseUrl}?author`,
         method: 'GET',
         dataType: 'json',
@@ -52,5 +53,18 @@ app.getBookReviews = () => {
             apiKey: app.reviewBaseUrl
         }
     });
-    return reviews;
+    return author;
+}
+
+// Get review
+app.getBookReview = () => {
+    const review = $.ajax({
+        url: `${app.reviewBaseUrl}`,
+        method: 'GET',
+        dataType: 'json',
+        data: {
+            apiKey: app.reviewBaseUrl
+        }
+    })
+    return review;
 }
