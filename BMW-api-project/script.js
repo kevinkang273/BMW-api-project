@@ -2,13 +2,11 @@ const app = {};
 
 app.init = () => {
     console.log('Ready to go!')
+    app.getDescription();
 }
 
 app.apiKey = 'https://api.nytimes.com/svc/books/v3/lists.json';
 
-$(() => {
-    app.init();
-})
 
 // Select a category of books, and see the latest best sellers in that category.
 app.getBookCategoryList = () => {
@@ -41,7 +39,18 @@ app.getBookOverview = () => {
     return imageList;
 }
 
-
+// Get review
+app.getBookReview = () => {
+    const review = $.ajax({
+        url: `${app.reviewBaseUrl}`,
+        method: 'GET',
+        dataType: 'json',
+        data: {
+            apiKey: app.reviewBaseUrl
+        }
+    })
+    return review;
+}
 
 // Display the author, and a very brief description of the book.
 app.getBookAuthor = () => {
@@ -56,15 +65,18 @@ app.getBookAuthor = () => {
     return author;
 }
 
-// Get review
-app.getBookReview = () => {
-    const review = $.ajax({
-        url: `${app.reviewBaseUrl}`,
-        method: 'GET',
-        dataType: 'json',
-        data: {
-            apiKey: app.reviewBaseUrl
-        }
+// Get description of the book
+app.getDescription = () => {
+    const bookDescription = app.getBookReview();
+
+    bookDescription.then(res => {
+        console.log(res);
+
+
     })
-    return review;
 }
+
+
+$(() => {
+    app.init();
+})
